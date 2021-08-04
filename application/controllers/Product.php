@@ -20,10 +20,11 @@ class Product extends CI_Controller
         return $this->load->view('product/add');
     }
 
-    function edit($product_id)
+    function edit($product_id = FALSE)
     {
         //$product_id = $this->uri->segment(3);
-        if (empty($product_id)) {
+        //this is just a bit faster, as its stright logic, and not a function that takes more computing / memory to workout - however, I would do it like this, but I changed $product_id to start with FALSE if nothing was passed, also so I could reuse with update()
+        if (!$product_id) {
             $this->session->set_flashdata('message', 'Some data is missing');
             return redirect('product');
         }
@@ -70,7 +71,12 @@ class Product extends CI_Controller
         $this->validateInput();
         
         if (!$this->form_validation->run()) {
-            return $this->load->view('product/edit');
+            //This will not work, as you have no product to edit ($product)
+            //return $this->load->view('product/edit');
+
+            //This is how you do this
+            //Re-use what you already have.
+            return $this->edit($product_id);
         }
 
         $product_name = $this->input->post('product_name');
