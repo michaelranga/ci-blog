@@ -42,7 +42,7 @@
           <?php //NEVER use <?= ALWAYS use <?php echo - that shorthand code is limited to the server, not to PHP so can fail
           // <input type="text" class="form-control" name="product_name" value="<?= $product_name; ?>" placeholder="Product Name">
           <!-- the point of using the form_validation library, is so you can clean your data, and display the previous settings if it failed -->
-          <input type="text" class="form-control" name="product_name" value="<?php echo set_value('product_name', $product->name) ?> $product_name; ?>" placeholder="Product Name">
+          <input type="text" class="form-control" name="product_name" value="<?php echo set_value('product_name', $product->name) ?>" placeholder="Product Name">
         </div>
         <label>Price</label>
         <div class="input-group mb-2 mr-sm-2">
