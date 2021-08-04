@@ -41,8 +41,11 @@
           <label>Product Name</label>
           <input type="text" class="form-control" name="product_name" value="<?= $product_name; ?>" placeholder="Product Name">
         </div>
-        <div class="form-group">
-          <label>Price</label>
+        <label>Price</label>
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">$AUD</div>
+          </div>
           <input type="text" class="form-control" name="product_price" value="<?= $product_price; ?>" placeholder="Price">
         </div>
         <input type="hidden" name="product_id" value="<?php echo $product_id ?>">

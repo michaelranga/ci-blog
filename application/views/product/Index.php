@@ -48,13 +48,16 @@
                 <tr>
                     <th scope="row"><?= $count; ?></th>
                     <td><?= $row->product_name; ?></td>
-                    <td><?= number_format($row->product_price); ?></td>
+                    <td>$<?= number_format($row->product_price); ?></td>
                     <td>
                         <a href="<?php echo site_url('product/edit/' . $row->product_id); ?>" class="btn btn-sm btn-warning">Update</a>
                         <a href="<?php echo site_url('product/delete/' . $row->product_id); ?>" class="btn btn-sm btn-danger">Delete</a>
                     <td>
                 </tr>
             <?php endforeach; ?>
+            <div class="form-group">
+                <div class="p-0 mb-1 bg-danger text-white" style="font-size:12px;"><?= $this->session->flashdata("message"); ?></div>
+            </div>
             </tbody>
         </table>
 
