@@ -35,11 +35,11 @@
       </br>
       <form action="<?php echo site_url('product/save'); ?>" method="post">
         <div class="form-group">
-          <div class="p-0 mb-1 bg-danger text-white" style="font-size:12px;"><?= $this->session->flashdata("message"); ?></div>
+          <?php echo validation_errors("<div class='p-0 mb-1 bg-danger text-white' style='font-size:12px;'>", "</div>") ?>
         </div>
         <div class="form-group">
           <label>Product Name</label>
-          <input type="text" class="form-control" name="product_name" placeholder="Product Name">
+          <input type="text" class="form-control" name="product_name" value="<?php echo set_value('product_name'); ?>" placeholder="Product Name">
         </div>
 
         <label>Price</label>
@@ -47,7 +47,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">$AUD</div>
           </div>
-          <input type="text" class="form-control" name="product_price" placeholder="Price">
+          <input type="text" class="form-control" name="product_price" value="<?php echo set_value('product_price'); ?>" placeholder="Price">
         </div>
         <div class="form-group">
           <label></label>

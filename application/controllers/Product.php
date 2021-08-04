@@ -45,8 +45,7 @@ class Product extends CI_Controller
         //Validate before you use - eg: adding trim to your validation will make the below data dirty
         $this->validateInput();
         if (!$this->form_validation->run()) {
-            $this->session->set_flashdata('message', validation_errors());
-            return redirect('product/add');
+            return $this->load->view('product/add');
         }
 
         $product_name = $this->input->post('product_name');
@@ -69,10 +68,9 @@ class Product extends CI_Controller
         }
 
         $this->validateInput();
-
+        
         if (!$this->form_validation->run()) {
-            $this->session->set_flashdata('message', validation_errors());
-            return redirect('product/edit/' . $product_id);
+            return $this->load->view('product/edit');
         }
 
         $product_name = $this->input->post('product_name');
@@ -86,9 +84,8 @@ class Product extends CI_Controller
         return redirect('product');
     }
 
-    function delete()
+    function delete($product_id)
     {
-        $product_id = $this->uri->segment(3);
         if (empty($product_id)) {
             $this->session->set_flashdata('message', 'Data not found');
             return redirect('product');

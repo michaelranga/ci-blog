@@ -35,23 +35,23 @@
       </br>
       <form action="<?php echo site_url('product/update'); ?>" method="post">
         <div class="form-group">
-          <div class="p-0 mb-1 bg-danger text-white" style="font-size:12px;"><?= $this->session->flashdata("message"); ?></div>
+          <?php echo validation_errors("<div class='p-0 mb-1 bg-danger text-white' style='font-size:12px;'>", "</div>") ?>
         </div>
         <div class="form-group">
           <label>Product Name</label>
           <?php //NEVER use <?= ALWAYS use <?php echo - that shorthand code is limited to the server, not to PHP so can fail
-          // <input type="text" class="form-control" name="product_name" value="<?= $product_name; ?>" placeholder="Product Name">
+          // <input type="text" class="form-control" name="product_name" value="<?= $product_name; ?>
           <!-- the point of using the form_validation library, is so you can clean your data, and display the previous settings if it failed -->
-          <input type="text" class="form-control" name="product_name" value="<?php echo set_value('product_name', $product->name) ?>" placeholder="Product Name">
+          <input type="text" class="form-control" name="product_name" value="<?php echo set_value('product_name', $product->product_name ?? '') ?>" placeholder="Product Name">
         </div>
         <label>Price</label>
         <div class="input-group mb-2 mr-sm-2">
           <div class="input-group-prepend">
             <div class="input-group-text">$AUD</div>
           </div>
-          <input type="text" class="form-control" name="product_price" value="<?= $product_price; ?>" placeholder="Price">
+          <input type="text" class="form-control" name="product_price" value="<?php echo set_value('product_price', $product->product_price ?? '') ?>" placeholder="Price">
         </div>
-        <input type="hidden" name="product_id" value="<?php echo $product_id ?>">
+        <input type="hidden" name="product_id" value="<?php echo set_value('product_id', $product->product_id ?? '') ?>">
         <div class="form-group">
           <label></label>
           <button type="submit" class="form-control btn btn-warning">Update</button>

@@ -46,9 +46,9 @@
             <?php foreach ($product->result() as $row) : ?>
                 <?php $count++ ?>
                 <tr>
-                    <th scope="row"><?= $count; ?></th>
-                    <td><?= $row->product_name; ?></td>
-                    <td>$<?= number_format($row->product_price); ?></td>
+                    <th scope="row"><?php echo $count; ?></th>
+                    <td><?php echo $row->product_name; ?></td>
+                    <td>$<?php echo number_format($row->product_price); ?></td>
                     <td>
                         <a href="<?php echo site_url('product/edit/' . $row->product_id); ?>" class="btn btn-sm btn-warning">Update</a>
                         <a href="<?php echo site_url('product/delete/' . $row->product_id); ?>" class="btn btn-sm btn-danger">Delete</a>
@@ -56,7 +56,7 @@
                 </tr>
             <?php endforeach; ?>
             <div class="form-group">
-                <div class="p-0 mb-1 bg-danger text-white" style="font-size:12px;"><?= $this->session->flashdata("message"); ?></div>
+                <div class="p-0 mb-1 bg-danger text-white" style="font-size:12px;"><?php echo $this->session->flashdata("message"); ?></div>
             </div>
             </tbody>
         </table>
