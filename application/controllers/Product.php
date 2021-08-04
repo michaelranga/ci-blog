@@ -47,17 +47,20 @@ class Product extends CI_Controller
     function save()
     {
         //Validate before you use - eg: adding trim to your validation will make the below data dirty
+        $this->validateInput();
+        if (!$this->form_validation->run()) {
+            $this->session->set_flashdata('message', validation_errors());
+            return redirect('product/add');
+        }
+
         $product_name = $this->input->post('product_name');
         $product_price = $this->input->post('product_price');
 
-        $this->validateInput();
-
-        if (!$this->form_validation->run()) {
-            $this->session->set_flashdata('message', validation_errors());
-            return $this->load->view('product/add');
-        }
-
-        $this->product_model->insert($product_name, $product_price);
+        $res = $this->product_model->insert($product_name, $product_price);
+        if(!$res)
+        {
+            $this->session->set_flashdata('message', 'Failed to create new product');
+        } 
         return redirect('product');
     }
 
@@ -70,23 +73,37 @@ class Product extends CI_Controller
         }
 
         //Validate before you use - eg: adding trim to your validation will make the below data dirty
-        $product_name = $this->input->post('product_name');
-        $product_price = $this->input->post('product_price');
-
         $this->validateInput();
-
         if (!$this->form_validation->run()) {
             $this->session->set_flashdata('message', validation_errors());
             return redirect('product/edit/' . $product_id);
         }
-        $this->product_model->update($product_id, $product_name, $product_price);
+
+        $product_name = $this->input->post('product_name');
+        $product_price = $this->input->post('product_price');
+
+        $res = $this->product_model->update($product_id, $product_name, $product_price);
+        if(!$res)
+        {
+            $this->session->set_flashdata('message', 'Failed to update');
+        } 
         return redirect('product');
     }
 
     function delete()
     {
         $product_id = $this->uri->segment(3);
-        $this->product_model->delete($product_id);
+        if (empty($product_id)) {
+            $this->session->set_flashdata('message', 'Data not found');
+            return redirect('product');
+        }
+        
+        $res = $this->product_model->delete($product_id);
+        if(!$res)
+        {
+            $this->session->set_flashdata('message', 'Failed to delete');
+        } 
+
         return redirect('product');
     }
 
@@ -95,7 +112,7 @@ class Product extends CI_Controller
         //Consider the below
         //$this->form_validation->set_rules('product_name', 'Product Name', 'trim|required|min_length[2]|max_length[30]');
 
-        $this->form_validation->set_rules('product_name', 'Product Name', 'required|min_length[2]|max_length[30]');
-        $this->form_validation->set_rules('product_price', 'Price', 'required|min_length[1]');
+        $this->form_validation->set_rules('product_name', 'Product Name', 'trim|required|min_length[2]|max_length[30]');
+        $this->form_validation->set_rules('product_price', 'Price', 'trim|required|min_length[1]');
     }
 }
