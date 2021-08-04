@@ -20,6 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		//Try this again, using the routes file
 		redirect('product');
 		// $this->load->view('welcome_message');
 	}

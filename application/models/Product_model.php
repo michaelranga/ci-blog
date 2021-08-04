@@ -11,6 +11,7 @@ class Product_model extends CI_Model
         return $result;
     }
 
+
     function get_product_by_id($product_id)
     {
         $query = $this->db->get_where($this->table, [$this->product_id => $product_id]);
@@ -18,6 +19,7 @@ class Product_model extends CI_Model
         return $query;
     }
 
+    ///What happens if the vars are empty?
     function insert($product_name, $product_price)
     {
         $data = [
@@ -28,6 +30,7 @@ class Product_model extends CI_Model
         return $this->db->insert($this->table, $data);
     }
 
+    //This is dangerous - let me know why you think that is?
     function update($product_id, $product_name, $product_price)
     {
         $data = [
@@ -39,6 +42,7 @@ class Product_model extends CI_Model
         return $this->db->update($this->table, $data);
     }
 
+    //What happens if $product_id = NULL
     function delete($product_id)
     {
         $this->db->where($this->product_id, $product_id);

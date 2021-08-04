@@ -38,7 +38,7 @@ class Product extends CI_Controller
                 'product_price' => $i['product_price']
             ];
             return $this->load->view('product/edit', $data);
-        } 
+        }
 
         $this->session->set_flashdata('message', 'Data not found');
         return redirect('product');
@@ -46,6 +46,7 @@ class Product extends CI_Controller
 
     function save()
     {
+        //Validate before you use - eg: adding trim to your validation will make the below data dirty
         $product_name = $this->input->post('product_name');
         $product_price = $this->input->post('product_price');
 
@@ -68,6 +69,7 @@ class Product extends CI_Controller
             return redirect('product');
         }
 
+        //Validate before you use - eg: adding trim to your validation will make the below data dirty
         $product_name = $this->input->post('product_name');
         $product_price = $this->input->post('product_price');
 
@@ -90,6 +92,9 @@ class Product extends CI_Controller
 
     function validateInput()
     {
+        //Consider the below
+        //$this->form_validation->set_rules('product_name', 'Product Name', 'trim|required|min_length[2]|max_length[30]');
+
         $this->form_validation->set_rules('product_name', 'Product Name', 'required|min_length[2]|max_length[30]');
         $this->form_validation->set_rules('product_price', 'Price', 'required|min_length[1]');
     }
