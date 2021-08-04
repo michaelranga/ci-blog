@@ -20,23 +20,19 @@ class Product extends CI_Controller
         return $this->load->view('product/add');
     }
 
-    function edit()
+    function edit($product_id)
     {
-        $product_id = $this->uri->segment(3);
+        //$product_id = $this->uri->segment(3);
         if (empty($product_id)) {
             $this->session->set_flashdata('message', 'Some data is missing');
             return redirect('product');
         }
 
-        $result = $this->product_model->get_product_by_id($product_id);
+        //Change the name to something meaningfull, and add it directly to the view data and no need for the code below
+        $data['product'] = $this->product_model->get_product_by_id($product_id);
 
-        if ($result->num_rows() > 0) {
-            $i = $result->row_array();
-            $data = [
-                'product_id'    => $i['product_id'],
-                'product_name'  => $i['product_name'],
-                'product_price' => $i['product_price']
-            ];
+        if ($data['product']) 
+        {
             return $this->load->view('product/edit', $data);
         }
 
@@ -72,8 +68,8 @@ class Product extends CI_Controller
             return redirect('product');
         }
 
-        //Validate before you use - eg: adding trim to your validation will make the below data dirty
         $this->validateInput();
+
         if (!$this->form_validation->run()) {
             $this->session->set_flashdata('message', validation_errors());
             return redirect('product/edit/' . $product_id);

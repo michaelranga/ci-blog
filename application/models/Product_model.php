@@ -11,14 +11,20 @@ class Product_model extends CI_Model
         return $result;
     }
 
-
-    function get_product_by_id($product_id)
+    //Review my changes here
+    function get_product_by_id($product_id = FALSE) //init product_id to FALSE
     {
-        if(is_null($product_id)) return false;
+        if(!$product_id) return false; //this will return if product_id = FALSE, 0, NULL
 
+        $this->db->limit(1); //Set it so we only want one result
         $query = $this->db->get_where($this->table, [$this->product_id => $product_id]);
 
-        return $query;
+        //check to see we only have one result
+        if($query->num_rows() == 1)
+        {
+            return $query->row(); //we only want the one row, and return the Object
+        }
+        return FALSE;
     }
 
     ///What happens if the vars are empty?
