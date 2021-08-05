@@ -61,9 +61,9 @@ class Product_model extends CI_Model
     }
 
     //What happens if $product_id = NULL
-    function delete($product_id)
+    function delete($product_id = FALSE)
     {
-        if(is_null($product_id)) return false;
+        if(!$product_id) return false;
 
         $this->db->where($this->product_id, $product_id);
 

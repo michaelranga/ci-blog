@@ -90,9 +90,9 @@ class Product extends CI_Controller
         return redirect('product');
     }
 
-    function delete($product_id)
+    function delete($product_id = FALSE)
     {
-        if (empty($product_id)) {
+        if (!$product_id) {
             $this->session->set_flashdata('message', 'Data not found');
             return redirect('product');
         }
